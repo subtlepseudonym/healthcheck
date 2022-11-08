@@ -1,21 +1,38 @@
-use std::convert::TryFrom;
-use hyper::{Client, Uri};
+use std::io::Read;
+use std::io::Write;
+use std::net::TcpStream;
 
-#[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
+fn main() {
     let url: String = match std::env::args().nth(1) {
-        Some(url) => url,
+        Some(u) => u,
         _ => std::process::exit(2),
     };
 
-    let uri: Uri = match Uri::try_from(url) {
-        Ok(u) => u,
+    let endpoint: String = match std::env::args().nth(2) {
+        Some(e) => e,
+        _ => std::process::exit(2),
+    };
+
+    let mut stream = match TcpStream::connect(&url) {
+        Ok(s) => s,
         Err(_) => std::process::exit(3),
     };
 
-    let client = Client::new();
-    match client.get(uri).await {
-        Ok(r) if r.status() == 200 => std::process::exit(0),
-        _ => std::process::exit(4),
+    let mut data = String::new();
+    data.push_str("GET ");
+    data.push_str(endpoint.as_str());
+    data.push_str(" HTTP/1.1\r\nHost: ");
+    data.push_str(url.as_str());
+    data.push_str("\r\nConnection: close\r\n\r\n");
+
+    match stream.write_all(data.as_bytes()) {
+        Ok(_) => (),
+        Err(_) => std::process::exit(4),
+    };
+
+    let mut buf = String::new();
+    match stream.read_to_string(&mut buf) {
+        Ok(_) if buf.contains("200 OK") => std::process::exit(0),
+        _ => std::process::exit(5),
     }
 }
