@@ -1,22 +1,18 @@
-use std::io::Read;
-use std::io::Write;
+use std::io::{Error, ErrorKind, Read, Write};
 use std::net::TcpStream;
 
 fn main() {
-    let url: String = match std::env::args().nth(1) {
-        Some(u) => u,
-        _ => std::process::exit(2),
+    match connect() {
+        Ok(_) => std::process::exit(0),
+        _ => std::process::exit(1),
     };
+}
 
-    let endpoint: String = match std::env::args().nth(2) {
-        Some(e) => e,
-        _ => std::process::exit(2),
-    };
+fn connect() -> Result<(), std::io::Error> {
+    let url = std::env::args().nth(1).ok_or(Error::from(ErrorKind::Other))?;
+    let endpoint = std::env::args().nth(2).ok_or(Error::from(ErrorKind::Other))?;
 
-    let mut stream = match TcpStream::connect(&url) {
-        Ok(s) => s,
-        Err(_) => std::process::exit(3),
-    };
+    let mut stream = TcpStream::connect(&url)?;
 
     let mut data = String::new();
     data.push_str("GET ");
@@ -25,14 +21,11 @@ fn main() {
     data.push_str(url.as_str());
     data.push_str("\r\nConnection: close\r\n\r\n");
 
-    match stream.write_all(data.as_bytes()) {
-        Ok(_) => (),
-        Err(_) => std::process::exit(4),
-    };
+    stream.write_all(data.as_bytes())?;
 
     let mut buf = String::new();
     match stream.read_to_string(&mut buf) {
-        Ok(_) if buf.contains("200 OK") => std::process::exit(0),
-        _ => std::process::exit(5),
+        Ok(_) if buf.contains("200 OK") => Ok(()),
+        _ => Err(Error::from(ErrorKind::Other)),
     }
 }
