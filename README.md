@@ -17,13 +17,13 @@ exits with code 1.
 nginx.conf
 ```nginx
 http {
-	server {
-		listen 8080;
+  server {
+    listen 8080;
 
-		location / {
-			return 200;
-		}
-	}
+    location /ok {
+      return 200;
+    }
+  }
 }
 ```
 
