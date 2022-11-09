@@ -28,7 +28,7 @@ http {
 ```
 
 Dockerfile
-```docker
+```dockerfile
 FROM nginx:latest
 COPY nginx.conf /etc/nginx/nginx.cof
 COPY --from=subtlespeudonym/healthcheck:latest /healthcheck /healthcheck
