@@ -1,7 +1,11 @@
-FROM rust:1.65.0
+FROM rust:1.65.0 AS build
 WORKDIR /workspace/
-COPY . .
-RUN cargo build --release
+RUN rustup target add x86_64-unknown-linux-musl
+
+COPY Cargo.toml Cargo.lock ./
+COPY src/ src/
+RUN cargo build --release --target x86_64-unknown-linux-musl
 
 FROM scratch
-COPY --from=0 /workspace/target/release/healthcheck /healthcheck
+WORKDIR /
+COPY --from=build /workspace/target/x86_64-unknown-linux-musl/release/healthcheck /healthcheck

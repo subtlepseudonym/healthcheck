@@ -10,6 +10,9 @@ codegen-units = 1  # redus number of codegen units to increase optimizations
 panic = 'abort'    # abort on panic
 strip = true       # strip symbols from binary (rust 1.59+)
 
+[target.x86_64-unknown-linux-musl]
+rustflags = ["-C", "target-feature=+crt-static"]
+
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
