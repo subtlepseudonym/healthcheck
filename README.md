@@ -3,7 +3,16 @@
 This project is intended as a lightweight binary that can be included in a
 docker image for health checks.
 
-For example:
+It expects two arguments, a host address and an HTTP endpoint.
+```bash
+healthcheck localhost:80 /ok
+```
+
+Healthcheck makes a GET request to the provided host and endpoint and exits
+with code 0 if it receives a response code of 200 OK. On any other error, it
+exits with code 1.
+
+### Examples
 
 nginx.conf
 ```nginx
