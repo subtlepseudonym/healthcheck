@@ -1,7 +1,8 @@
 # Healthcheck
 
 This project is intended as a lightweight binary that can be included in a
-docker image for health checks.
+docker image for health checks. It totals around 279Kb with glibc and 379Kb when
+statically linked.
 
 It expects two arguments, a host address and an HTTP endpoint.
 ```bash
@@ -35,4 +36,17 @@ COPY --from=subtlespeudonym/healthcheck:latest /healthcheck /healthcheck
 
 EXPOSE 8080
 HEALTHCHECK CMD healthcheck localhost:8080 /ok
+```
+
+### Building from source
+
+```bash
+# best performance, large binary, dynamically linked
+cargo build
+
+# smallest binary, dynamically linked
+cargo build --release
+
+# statically linked
+cargo build --release --target x86_64-unknown-linux-musl
 ```
