@@ -1,5 +1,7 @@
 # Healthcheck
 
+[![docker_size](https://img.shields.io/docker/image-size/subtlepseudonym/healthcheck)](https://hub.docker.com/r/subtlepseudonym/healthcheck)
+
 This project is intended as a lightweight binary that can be included in a
 docker image for health checks. It totals around 279Kb with glibc and 379Kb when
 statically linked.
