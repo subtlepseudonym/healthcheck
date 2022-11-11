@@ -42,6 +42,13 @@ HEALTHCHECK CMD healthcheck localhost:8080 /ok
 
 ### Building from source
 
+To get the smallest, static binary and the same one included in the docker
+image:
+```bash
+make release
+```
+
+There are, however, a few other options to building this project:
 ```bash
 # best performance, large binary, dynamically linked
 cargo build
