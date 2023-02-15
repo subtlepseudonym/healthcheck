@@ -1,6 +1,6 @@
 # Healthcheck
 
-[![github](https://img.shields.io/github/v/tag/subtlepseudonym/pihole-exporter?logo=github&sort=semver)](https://github.com/subtlepseudonym/pihole-exporter/tags) [![docker_size](https://img.shields.io/docker/image-size/subtlepseudonym/healthcheck?label=size&logo=docker)](https://hub.docker.com/r/subtlepseudonym/healthcheck) [![docker_pulls](https://img.shields.io/docker/pulls/subtlepseudonym/pihole-exporter?label=pulls&logo=docker)](https://hub.docker.com/r/subtlepseudonym/pihole-exporter) [![kofi](https://img.shields.io/badge/ko--fi-Support%20me%20-hotpink?logo=kofi&logoColor=white)](https://ko-fi.com/subtlepseudonym)
+[![github](https://img.shields.io/github/v/tag/subtlepseudonym/healthcheck?logo=github&sort=semver)](https://github.com/subtlepseudonym/healthcheck/tags) [![docker_size](https://img.shields.io/docker/image-size/subtlepseudonym/healthcheck?label=size&logo=docker)](https://hub.docker.com/r/subtlepseudonym/healthcheck) [![docker_pulls](https://img.shields.io/docker/pulls/subtlepseudonym/healthcheck?label=pulls&logo=docker)](https://hub.docker.com/r/subtlepseudonym/healthcheck) [![kofi](https://img.shields.io/badge/ko--fi-Support%20me%20-hotpink?logo=kofi&logoColor=white)](https://ko-fi.com/subtlepseudonym)
 
 This project is intended as a lightweight binary that can be included in a
 docker image for health checks. The latest image size is included in the
